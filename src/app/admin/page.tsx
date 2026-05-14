@@ -89,7 +89,9 @@ export default function AdminDashboard() {
   }, [router]);
 
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeReportTab, setActiveReportTab] = useState('summary');
+
   const [currentPrintingOrder, setCurrentPrintingOrder] = useState<Order | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -1389,17 +1391,37 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-layout" dir="rtl">
-      <aside className="admin-sidebar">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="admin-sidebar-overlay" 
+          onClick={() => setIsSidebarOpen(false)}
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', z-index: 1500, backdropFilter: 'blur(4px)'
+          }}
+        />
+      )}
+
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'mobile-active' : ''}`}>
+
         <div className="sidebar-logo">
           <span className="logo-text">أثير</span>
         </div>
         <nav className="sidebar-nav">
           {tabs.map(tab => (
-            <button key={tab.id} className={`sidebar-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>
+            <button 
+              key={tab.id} 
+              className={`sidebar-item ${activeTab === tab.id ? 'active' : ''}`} 
+              onClick={() => {
+                setActiveTab(tab.id);
+                setIsSidebarOpen(false);
+              }}
+            >
               <span className="sidebar-icon">{tab.icon}</span>
               <span className="sidebar-label">{tab.label}</span>
             </button>
           ))}
+
           
           <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
             <Link href="/" className="sidebar-item" style={{ textDecoration: 'none' }}>
@@ -1411,8 +1433,21 @@ export default function AdminDashboard() {
       </aside>
       <main className="admin-main">
         <header className="admin-topbar">
-          <h1 className="topbar-title">{tabs.find(t => t.id === activeTab)?.label}</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="admin-menu-toggle"
+              style={{ 
+                background: 'var(--charcoal)', color: 'white', border: 'none', 
+                borderRadius: '8px', padding: '8px', display: 'none', cursor: 'pointer' 
+              }}
+            >
+              ☰
+            </button>
+            <h1 className="topbar-title">{tabs.find(t => t.id === activeTab)?.label}</h1>
+          </div>
         </header>
+
         <div className="admin-content">{renderContent()}</div>
       </main>
       {/* Modals and other logic remain same but cleaned up */}
