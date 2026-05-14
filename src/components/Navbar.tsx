@@ -54,6 +54,14 @@ export default function Navbar() {
     };
   }, []);
 
+  // Dynamic Title Update
+  useEffect(() => {
+    if (settings.storeName) {
+      document.title = `${settings.storeName} | ${settings.logoText || ''}`;
+    }
+  }, [settings.storeName, settings.logoText]);
+
+
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
