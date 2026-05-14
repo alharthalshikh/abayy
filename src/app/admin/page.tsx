@@ -292,18 +292,41 @@ export default function AdminDashboard() {
     } catch { showToast("فشل تغيير الصلاحيات", "error"); }
   };
 
-  const handleFileUpload = async (file: File): Promise<string> => {
-    if (!isFirebaseConfigured()) {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.readAsDataURL(file);
-      });
-    }
-    const storageRef = ref(storage, `products/${Date.now()}_${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    return await getDownloadURL(snapshot.ref);
+  // --- Base64 Helper ---
+  const compressImage = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/webp', 0.6));
+        };
+        img.onerror = reject;
+      };
+      reader.onerror = reject;
+    });
   };
+
+  const handleFileUpload = async (file: File): Promise<string> => {
+    return await compressImage(file);
+  };
+
 
   const saveProduct = async () => {
     try {
@@ -1250,16 +1273,27 @@ export default function AdminDashboard() {
     } catch (error) { console.error(error); }
   };
   const saveSettings = async () => {
+    setUploading(true);
     try {
-      setUploading(true);
-      let finalLogoUrl = storeSettings.logo;
+      let finalLogo = storeSettings.logo;
+
+      // Handle logo upload if a file was selected
       if (storeLogoFile) {
-        finalLogoUrl = await handleFileUpload(storeLogoFile);
+        finalLogo = await compressImage(storeLogoFile);
       }
-      
-      const updatedSettings = { ...storeSettings, logo: finalLogoUrl };
-      await setDoc(doc(db, "settings", "store_config"), updatedSettings);
-      setStoreSettings(updatedSettings);
+
+      const storeConfig = {
+        storeName: storeSettings.storeName,
+        logoText: storeSettings.logoText,
+        logo: finalLogo,
+        whatsappNumber: storeSettings.whatsappNumber,
+        currency: storeSettings.currency,
+        currencySymbol: storeSettings.currencySymbol,
+        footerText: storeSettings.footerText,
+        termsAndConditions: storeSettings.termsAndConditions,
+      };
+      await setDoc(doc(db, "settings", "store_config"), storeConfig);
+      setStoreSettings(storeConfig as any);
       showToast("تم حفظ الإعدادات بنجاح", "success");
     } catch (error) { 
       console.error(error);
@@ -1584,12 +1618,17 @@ export default function AdminDashboard() {
                         type="file" 
                         hidden 
                         accept="image/*" 
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           const file = e.target.files?.[0];
-                          if (file) {
-                            setImageFile(file);
-                            setImagePreview(URL.createObjectURL(file));
+                          if (!file) return;
+                          setUploading(true);
+                          const base64 = await compressImage(file);
+                          if (base64) {
+                            setProductForm({...productForm, imageUrl: base64});
+                            setImagePreview(base64);
+                            showToast('تمت معالجة الصورة بنجاح');
                           }
+                          setUploading(false);
                         }} 
                       />
                     </label>
@@ -1689,11 +1728,15 @@ export default function AdminDashboard() {
                   <div className="upload-zone">
                     <label className="upload-label">
                       {categoryImageFile ? `✅ تم الاختيار` : '📁 اختر صورة للتصنيف'}
-                      <input type="file" hidden accept="image/*" onChange={(e) => {
+                      <input type="file" hidden accept="image/*" onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (file) {
+                          setUploading(true);
+                          const base64 = await compressImage(file);
+                          setCategoryForm({...categoryForm, icon: base64});
                           setCategoryImageFile(file);
-                          setImagePreview(URL.createObjectURL(file));
+                          setImagePreview(base64);
+                          setUploading(false);
                         }
                       }} />
                     </label>
