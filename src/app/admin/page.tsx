@@ -495,7 +495,7 @@ export default function AdminDashboard() {
 
       <div className="stats-grid">
         {[
-          { label: 'إجمالي المبيعات', value: `${totalRevenue.toLocaleString()} ر.س`, icon: '💰', color: '#c8a96e' },
+          { label: 'إجمالي المبيعات', value: `${totalRevenue.toLocaleString()} ${storeSettings.currencySymbol || 'ر.س'}`, icon: '💰', color: '#c8a96e' },
           { label: 'عدد الطلبات', value: orders.length, icon: '📦', color: '#2196F3' },
           { label: 'طلبات معلقة', value: pendingOrders, icon: '⏳', color: '#FF9800' },
           { label: 'العملاء', value: customers.length, icon: '👥', color: '#4caf50' },
@@ -974,7 +974,7 @@ export default function AdminDashboard() {
         <h4 style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>🚚 تكاليف التوصيل والحد الأدنى</h4>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 15, marginBottom: 20 }}>
           <div className="form-group">
-            <label>رسوم التوصيل الثابتة (ر.س)</label>
+            <label>رسوم التوصيل الثابتة ({storeSettings.currencySymbol || 'ر.س'})</label>
             <input type="number" value={shippingSettings.fixedDeliveryFee} onChange={e => setShippingSettings({ ...shippingSettings, fixedDeliveryFee: Number(e.target.value) })} />
           </div>
           <div className="form-group">
