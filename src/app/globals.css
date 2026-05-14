@@ -158,6 +158,10 @@ img {
   opacity: 0.9;
 }
 
+.nav-fav-link {
+  position: relative;
+}
+
 .navbar-links a::after {
   content: '';
   position: absolute;
@@ -1236,8 +1240,12 @@ img {
   .navbar-links a {
     font-size: 20px;
     width: 100%;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
+
   .navbar-inner {
     padding: 0 15px;
   }
