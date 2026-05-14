@@ -1283,16 +1283,17 @@ export default function AdminDashboard() {
       }
 
       const storeConfig = {
-        storeName: storeSettings.storeName,
-        logoText: storeSettings.logoText,
-        logo: finalLogo,
-        whatsappNumber: storeSettings.whatsappNumber,
-        currency: storeSettings.currency,
-        currencySymbol: storeSettings.currencySymbol,
-        footerText: storeSettings.footerText,
-        termsAndConditions: storeSettings.termsAndConditions,
+        storeName: storeSettings.storeName || "",
+        logoText: storeSettings.logoText || "",
+        logo: finalLogo || "",
+        whatsappNumber: storeSettings.whatsappNumber || "",
+        currency: storeSettings.currency || "",
+        currencySymbol: storeSettings.currencySymbol || "",
+        footerText: storeSettings.footerText || "",
+        termsAndConditions: storeSettings.termsAndConditions || "",
       };
       await setDoc(doc(db, "settings", "store_config"), storeConfig);
+
       setStoreSettings(storeConfig as any);
       showToast("تم حفظ الإعدادات بنجاح", "success");
     } catch (error) { 
