@@ -17,8 +17,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'success') => {
-    const id = Date.now() + Math.random();
-    setToasts((prev) => [...prev, { id, message, type }]);
+    const id = Date.now();
+    // Replace current toasts with the new one to prevent stacking
+    setToasts([{ id, message, type }]);
+    
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 4000);
