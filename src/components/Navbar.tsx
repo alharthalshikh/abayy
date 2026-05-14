@@ -102,6 +102,7 @@ export default function Navbar() {
               <button className="menu-close-btn" onClick={() => setIsMenuOpen(false)}>✕</button>
             )}
 
+            <Link href="/" onClick={() => setIsMenuOpen(false)}>الصفحة الرئيسية</Link>
             <Link href="/abayas" onClick={() => setIsMenuOpen(false)}>العبايات</Link>
             <Link href="/bags" onClick={() => setIsMenuOpen(false)}>الحقائب</Link>
             <Link href="/about" onClick={() => setIsMenuOpen(false)}>من نحن</Link>
@@ -114,6 +115,15 @@ export default function Navbar() {
             {isAdmin && (
               <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
             )}
+
+            {!authLoading && (
+              user ? (
+                <button onClick={() => { handleLogout(); setIsMenuOpen(false); }} className="menu-auth-btn">تسجيل الخروج</button>
+              ) : (
+                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
+              )
+            )}
+
           </div>
 
           <div className="navbar-actions">

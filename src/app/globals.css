@@ -1263,6 +1263,21 @@ img {
     transform: translateY(0);
   }
 
+  .menu-auth-btn {
+    background: var(--gold);
+    color: var(--black);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+  }
+
   .navbar-links a {
     font-size: 20px;
     width: 100%;
