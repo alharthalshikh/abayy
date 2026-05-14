@@ -195,6 +195,25 @@ img {
   align-items: center;
 }
 
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  color: #f5f0ea;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--gold);
+  transform: rotate(12deg) scale(1.1);
+}
+
 .navbar-actions button:hover,
 .btn-login:hover {
   color: var(--gold);
