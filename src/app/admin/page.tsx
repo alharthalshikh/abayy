@@ -1397,8 +1397,9 @@ export default function AdminDashboard() {
           className="admin-sidebar-overlay" 
           onClick={() => setIsSidebarOpen(false)}
           style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', z-index: 1500, backdropFilter: 'blur(4px)'
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 1500, backdropFilter: 'blur(4px)'
           }}
+
         />
       )}
 
