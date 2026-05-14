@@ -1688,7 +1688,11 @@ img {
     width: 40px;
     height: 40px;
   }
+  .mobile-hide {
+    display: none !important;
+  }
 }
+
 
 
 .topbar-greeting {

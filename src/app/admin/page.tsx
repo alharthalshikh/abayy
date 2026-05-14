@@ -1485,7 +1485,13 @@ export default function AdminDashboard() {
             </button>
             <h1 className="topbar-title">{tabs.find(t => t.id === activeTab)?.label}</h1>
           </div>
+          
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'rgba(200, 169, 110, 0.1)', borderRadius: '10px', color: 'var(--gold)', fontSize: '13px', fontWeight: 600 }}>
+            <span>🏠</span>
+            <span className="mobile-hide">العودة للمتجر</span>
+          </Link>
         </header>
+
 
         <div className="admin-content">{renderContent()}</div>
       </main>
