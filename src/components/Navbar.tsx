@@ -153,12 +153,8 @@ export default function Navbar() {
               <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
             )}
 
-            {!authLoading && (
-              user ? (
-
-              ) : (
-                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
-              )
+            {!authLoading && !user && (
+              <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
             )}
 
           </div>
@@ -167,11 +163,7 @@ export default function Navbar() {
           <div className="navbar-actions">
             {authLoading ? (
               <div className="auth-loader-skeleton"></div>
-            ) : user ? (
-
-
-
-            ) : (
+            ) : !user && (
               <Link href="/login" className="btn-login">تسجيل الدخول</Link>
             )}
             <button className="btn-cart" onClick={() => setIsCartOpen(true)}>
