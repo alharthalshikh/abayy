@@ -92,6 +92,24 @@ export default function AdminDashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeReportTab, setActiveReportTab] = useState('summary');
 
+  // Sync tab with URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab') as AdminTab;
+    if (tab && ['dashboard', 'products', 'categories', 'orders', 'customers', 'reviews', 'banners', 'shipping', 'settings', 'reports'].includes(tab)) {
+      handleTabChange(tab);
+    }
+  }, []);
+
+  const handleTabChange = (tab: AdminTab) => {
+    handleTabChange(tab);
+    const url = new URL(window.location.href);
+    url.searchParams.set('tab', tab);
+    window.history.pushState({}, '', url);
+    setIsSidebarOpen(false);
+  };
+
+
   const [currentPrintingOrder, setCurrentPrintingOrder] = useState<Order | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -479,7 +497,7 @@ export default function AdminDashboard() {
   const renderDashboard = () => (
     <div>
       {outOfStock > 0 && (
-        <div className="admin-alert alert-danger" onClick={() => setActiveTab('products')} style={{ marginBottom: 12, cursor: 'pointer' }}>
+        <div className="admin-alert alert-danger" onClick={() => handleTabChange('products')} style={{ marginBottom: 12, cursor: 'pointer' }}>
           <span className="alert-icon">🚨</span>
           <div>
             <div className="alert-title">{outOfStock} منتج نفد من المخزون</div>
@@ -488,7 +506,7 @@ export default function AdminDashboard() {
         </div>
       )}
       {lowStockProducts.length > 0 && (
-        <div className="admin-alert alert-warning" onClick={() => setActiveTab('products')} style={{ marginBottom: 12, cursor: 'pointer' }}>
+        <div className="admin-alert alert-warning" onClick={() => handleTabChange('products')} style={{ marginBottom: 12, cursor: 'pointer' }}>
           <span className="alert-icon">⚠️</span>
           <div>
             <div className="alert-title">{lowStockProducts.length} منتج مخزونه منخفض</div>
@@ -1221,7 +1239,7 @@ export default function AdminDashboard() {
                 <tr key={p.id}>
                   <td>{p.name}</td>
                   <td style={{ color: '#F44336', fontWeight: 700 }}>{p.quantity || 0}</td>
-                  <td><button className="btn-icon" onClick={() => { setActiveTab('products'); setEditingProductId(p.id); setShowProductModal(true); }}>📦 تحديث</button></td>
+                  <td><button className="btn-icon" onClick={() => { handleTabChange('products'); setEditingProductId(p.id); setShowProductModal(true); }}>📦 تحديث</button></td>
                 </tr>
               ))}
             </tbody>
@@ -1505,10 +1523,7 @@ export default function AdminDashboard() {
             <button 
               key={tab.id} 
               className={`sidebar-item ${activeTab === tab.id ? 'active' : ''}`} 
-              onClick={() => {
-                setActiveTab(tab.id);
-                setIsSidebarOpen(false);
-              }}
+              onClick={() => handleTabChange(tab.id)}
             >
               <span className="sidebar-icon">{tab.icon}</span>
               <span className="sidebar-label">{tab.label}</span>
