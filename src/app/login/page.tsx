@@ -197,7 +197,110 @@ export default function LoginPage() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="login-loading-overlay">
+        <div className="loading-content">
+          <div className="loading-logo">
+            <div className="logo-glow"></div>
+            <div className="logo-text">{settings.logoText.slice(0, 2).toUpperCase()}</div>
+          </div>
+          <h2 className="loading-title">جاري تسجيل الدخول...</h2>
+          <p className="loading-subtitle">مرحباً بكِ في عالم الأناقة والفخامة</p>
+          <div className="loading-bar-container">
+            <div className="loading-bar-progress"></div>
+          </div>
+        </div>
+        <style jsx>{`
+          .login-loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0c0c0c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-family: var(--font-cairo), sans-serif;
+          }
+          .loading-content {
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+          }
+          .loading-logo {
+            width: 100px;
+            height: 100px;
+            background: #1a1a1a;
+            border: 2px solid #c8a96e;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            position: relative;
+          }
+          .logo-glow {
+            position: absolute;
+            inset: -15px;
+            background: #c8a96e;
+            filter: blur(25px);
+            opacity: 0.3;
+            animation: pulse 2s infinite ease-in-out;
+          }
+          .logo-text {
+            font-size: 40px;
+            font-weight: 800;
+            color: #c8a96e;
+            z-index: 2;
+          }
+          .loading-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #c8a96e 0%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          .loading-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 40px;
+          }
+          .loading-bar-container {
+            width: 240px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin: 0 auto;
+            overflow: hidden;
+          }
+          .loading-bar-progress {
+            width: 60%;
+            height: 100%;
+            background: #c8a96e;
+            border-radius: 10px;
+            animation: loadingMove 1.5s infinite ease-in-out;
+            box-shadow: 0 0 15px rgba(200, 169, 110, 0.5);
+          }
+          @keyframes loadingMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+          }
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
   return (
+
     <div className="lp-container">
       <canvas ref={canvasRef} className="lp-bg-canvas" />
       
