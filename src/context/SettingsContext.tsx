@@ -55,6 +55,18 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
   const [settings, setSettings] = useState<StoreSettings>(defaultSettings);
   const [loading, setLoading] = useState(true);
 
+  // Initialize from localStorage for instant load
+  useEffect(() => {
+    const saved = localStorage.getItem('store_settings_cache');
+    if (saved) {
+      try {
+        setSettings(JSON.parse(saved));
+      } catch (e) {
+        console.error("Error parsing settings cache:", e);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     // Listen to store config
     const unsubStore = onSnapshot(doc(db, "settings", "store_config"), (docSnap) => {
@@ -99,6 +111,14 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
       unsubShipping();
     };
   }, []);
+
+  // Save to localStorage whenever settings change
+  useEffect(() => {
+    if (settings !== defaultSettings) {
+      localStorage.setItem('store_settings_cache', JSON.stringify(settings));
+    }
+  }, [settings]);
+
 
   return (
     <SettingsContext.Provider value={{ settings, loading }}>
