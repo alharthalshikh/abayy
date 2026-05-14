@@ -98,6 +98,10 @@ export default function Navbar() {
           </Link>
 
           <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
+            {isMenuOpen && (
+              <button className="menu-close-btn" onClick={() => setIsMenuOpen(false)}>✕</button>
+            )}
+
             <Link href="/abayas" onClick={() => setIsMenuOpen(false)}>العبايات</Link>
             <Link href="/bags" onClick={() => setIsMenuOpen(false)}>الحقائب</Link>
             <Link href="/about" onClick={() => setIsMenuOpen(false)}>من نحن</Link>
