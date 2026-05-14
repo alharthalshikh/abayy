@@ -1222,21 +1222,24 @@ img {
   .navbar-links {
     display: flex;
     position: fixed;
-    top: 70px;
+    top: 0; /* Changed to 0 to cover full screen */
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--black);
+    background: #000000; /* Solid black for menu */
     flex-direction: column;
+    justify-content: center; /* Center links vertically */
     padding: 40px;
-    gap: 30px;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    z-index: 999;
+    gap: 40px;
+    transform: translateY(-100%); /* Slide from top */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2500; /* Highest possible */
   }
+
   .navbar-links.active {
-    transform: translateX(0);
+    transform: translateY(0);
   }
+
   .navbar-links a {
     font-size: 20px;
     width: 100%;
