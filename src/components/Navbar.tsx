@@ -54,12 +54,24 @@ export default function Navbar() {
     };
   }, []);
 
-  // Dynamic Title Update
+  // Dynamic Title & Favicon Update
   useEffect(() => {
     if (settings.storeName) {
       document.title = `${settings.storeName} | ${settings.logoText || ''}`;
     }
-  }, [settings.storeName, settings.logoText]);
+    
+    // Update Favicon
+    if (settings.logo && (settings.logo.startsWith('http') || settings.logo.startsWith('data:image'))) {
+      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+      link.href = settings.logo;
+    }
+  }, [settings.storeName, settings.logoText, settings.logo]);
+
 
 
   useEffect(() => {
