@@ -502,7 +502,7 @@ img {
 
 .cart-header {
   padding: 24px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -511,9 +511,10 @@ img {
 .cart-header h2 {
   font-size: 22px;
   font-weight: 900;
-  color: var(--black);
+  color: var(--text-primary);
   letter-spacing: -0.5px;
 }
+
 
 .btn-close-cart {
   background: none;
@@ -534,15 +535,16 @@ img {
   gap: 16px;
   margin-bottom: 24px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #f9f9f9;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .item-img {
   border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
 }
+
 
 .item-info {
   flex: 1;
@@ -552,8 +554,9 @@ img {
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 6px;
-  color: var(--black);
+  color: var(--text-primary);
 }
+
 
 .item-price {
   color: var(--gold-dark);
@@ -572,12 +575,14 @@ img {
 .qty-picker {
   display: flex;
   align-items: center;
-  background: #f8f8f8;
+  background: var(--bg-secondary);
   border-radius: 12px;
   padding: 6px;
   gap: 15px;
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
+
 
 .qty-picker button {
   width: 34px;
@@ -618,9 +623,10 @@ img {
 
 .cart-footer {
   padding: 24px;
-  background: #fafafa;
-  border-top: 1px solid #eee;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
 }
+
 
 .cart-total {
   display: flex;
@@ -631,8 +637,9 @@ img {
 .cart-total span {
   font-size: 18px;
   font-weight: 700;
-  color: #666;
+  color: var(--text-secondary);
 }
+
 
 .total-amount {
   font-size: 24px !important;
