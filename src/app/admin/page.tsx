@@ -48,7 +48,7 @@ interface Category { id: string; name: string; icon: string; description: string
 interface Order { id: string; customerName: string; customerPhone: string; items: {name:string;qty:number;price:number}[]; total: number; status: 'pending'|'processing'|'shipped'|'delivered'|'cancelled'; createdAt: number; }
 interface Review { id: string; customerName: string; productName: string; rating: number; comment: string; adminReply?: string; createdAt: number; }
 interface Customer { id: string; name: string; email: string; phone?: string; role: 'customer' | 'admin' | 'moderator'; isSuspended?: boolean; isActive?: boolean; createdAt?: any; }
-interface Banner { id: string; title: string; subtitle: string; image: string; active: boolean; link?: string; }
+interface Banner { id: string; title: string; subtitle: string; description?: string; image: string; active: boolean; link?: string; }
 
 const emptyProduct = { name: "", description: "", price: 0, oldPrice: 0, lowStockThreshold: 3, category: "abaya" as "abaya"|"bag", imageUrl: "", quantity: 1, featured: false };
 const emptyCategory: Partial<Category> = { name: "", icon: "📦", description: "" };
