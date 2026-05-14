@@ -59,7 +59,7 @@ export default function Navbar() {
     if (settings.storeName) {
       document.title = `${settings.storeName} | ${settings.logoText || ''}`;
     }
-    
+
     // Update Favicon
     if (settings.logo && (settings.logo.startsWith('http') || settings.logo.startsWith('data:image'))) {
       let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
@@ -99,8 +99,8 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
         <div className="navbar-inner">
           <div className="navbar-mobile-controls">
-            <button 
-              className="mobile-toggle" 
+            <button
+              className="mobile-toggle"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle Menu"
             >
@@ -110,9 +110,9 @@ export default function Navbar() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
               )}
             </button>
-            
-            <button 
-              className="theme-toggle-btn" 
+
+            <button
+              className="theme-toggle-btn"
               onClick={toggleTheme}
               title={theme === 'light' ? 'الوضع الليلي' : 'الوضع النهاري'}
             >
@@ -155,8 +155,8 @@ export default function Navbar() {
 
             {!authLoading && (
               user ? (
-                <button 
-                  onClick={() => { handleLogout(); setIsMenuOpen(false); }} 
+                <button
+                  onClick={() => { handleLogout(); setIsMenuOpen(false); }}
                   className="mobile-logout-btn"
                 >
                   تسجيل الخروج
@@ -175,10 +175,9 @@ export default function Navbar() {
             ) : user ? (
               <div className="user-profile-nav">
                 <span className="user-name-hint" style={{ fontSize: '14px', opacity: 0.8 }}>مرحباً، {user.displayName?.split(' ')[0] || 'عميلنا'}</span>
-                <button onClick={handleLogout} className="btn-logout desktop-hide" title="تسجيل الخروج">
+                <button onClick={handleLogout} className="btn-logout" title="تسجيل الخروج">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 </button>
-
               </div>
 
 
