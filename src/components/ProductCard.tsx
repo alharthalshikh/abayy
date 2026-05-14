@@ -131,7 +131,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         </button>
       </div>
       <div className="product-details">
-        <h4 className="product-name" style={{ marginBottom: '8px', fontSize: '1.1rem', transition: 'color 0.3s' }}>{product.name}</h4>
+        <h4 className="product-name">{product.name}</h4>
+
         <div className="product-price-wrapper">
           <span className="product-price">{product.price} {settings.currencySymbol}</span>
           {product.oldPrice ? <span className="product-old-price">{product.oldPrice} {settings.currencySymbol}</span> : null}

@@ -1066,6 +1066,9 @@ img {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .product-card:hover {
@@ -1076,9 +1079,16 @@ img {
 
 .product-image {
   position: relative;
-  height: 340px;
+  height: 340px; /* Base height */
   overflow: hidden;
   background: var(--off-white);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .product-image {
+    height: 240px; /* Smaller height on mobile */
+  }
 }
 
 .product-image img {
@@ -1103,6 +1113,7 @@ img {
   padding: 5px 14px;
   border-radius: 2px;
   letter-spacing: 0.5px;
+  z-index: 5;
 }
 
 .product-badge.sold-out {
@@ -1118,13 +1129,22 @@ img {
 
 .product-details {
   padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .product-name {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
+  min-height: 48px; /* Force 2 lines height */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
 }
 
 .product-price-wrapper {
@@ -1132,13 +1152,15 @@ img {
   align-items: baseline;
   gap: 12px;
   margin-bottom: 18px;
+  margin-top: auto; /* Push price and button to bottom */
 }
 
 .product-price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   color: var(--gold-dark);
 }
+
 
 .product-old-price {
   font-size: 14px;
