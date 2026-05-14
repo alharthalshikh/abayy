@@ -1244,7 +1244,7 @@ img {
   .navbar-mobile-controls {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     order: 2;
   }
   .navbar-logo {
@@ -1282,7 +1282,7 @@ img {
     background: var(--gold) !important;
   }
   .btn-cart-text {
-    display: none;
+    display: none !important;
   }
   .cart-icon-nav {
     display: block;
@@ -2351,9 +2351,12 @@ img {
    ======================================== */
 @media (max-width: 768px) {
   .page-hero {
-    height: 30vh;
-    min-height: 220px;
-    padding-top: 60px;
+    height: auto;
+    min-height: 260px;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .page-hero-content h1 {
