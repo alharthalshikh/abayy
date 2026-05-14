@@ -1551,10 +1551,18 @@ img {
     right: 0 !important;
   }
 
+  .sidebar-label {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: inherit !important;
+  }
+
   .admin-sidebar-overlay {
     z-index: 9000 !important;
   }
 }
+
 
 
 
