@@ -164,7 +164,8 @@ export default function AdminDashboard() {
   // Banners
   const [banners, setBanners] = useState<Banner[]>([]);
   const [showBannerModal, setShowBannerModal] = useState(false);
-  const [bannerForm, setBannerForm] = useState<Partial<Banner>>({ title: '', subtitle: '', image: '', active: true, link: '/' });
+  const [bannerForm, setBannerForm] = useState<Partial<Banner>>({ title: '', subtitle: '', description: '', image: '', active: true, link: '/' });
+
   const [editingBannerId, setEditingBannerId] = useState<string | null>(null);
   const [storeLogoFile, setStoreLogoFile] = useState<File | null>(null);
   const [storeLogoPreview, setStoreLogoPreview] = useState<string | null>(null);
@@ -1792,7 +1793,7 @@ export default function AdminDashboard() {
                 />
               </div>
               <div className="form-group" style={{ marginBottom: 20 }}>
-                <label style={{ color: '#fff', fontWeight: 600 }}>الوصف</label>
+                <label style={{ color: '#fff', fontWeight: 600 }}>الوصف الرئيسي</label>
                 <input 
                   type="text" 
                   value={bannerForm.subtitle} 
@@ -1801,6 +1802,17 @@ export default function AdminDashboard() {
                   style={{ background: '#000', border: '1px solid #333', color: '#fff', padding: '12px', borderRadius: 10 }}
                 />
               </div>
+              <div className="form-group" style={{ marginBottom: 20 }}>
+                <label style={{ color: '#fff', fontWeight: 600 }}>الجملة المميزة (مثل: بلمسة عصرية)</label>
+                <input 
+                  type="text" 
+                  value={bannerForm.description || ''} 
+                  onChange={e => setBannerForm({ ...bannerForm, description: e.target.value })} 
+                  placeholder="بلمسة عصرية"
+                  style={{ background: '#000', border: '1px solid #333', color: '#fff', padding: '12px', borderRadius: 10 }}
+                />
+              </div>
+
               <div className="form-group" style={{ marginBottom: 20 }}>
                 <label style={{ color: '#fff', fontWeight: 600 }}>صورة البانر *</label>
                 <div style={{ display: 'flex', gap: 10 }}>
