@@ -1693,6 +1693,17 @@ img {
   }
 }
 
+.desktop-hide {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .desktop-hide {
+    display: flex !important;
+  }
+}
+
+
 
 
 .topbar-greeting {
