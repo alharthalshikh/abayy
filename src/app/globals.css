@@ -1534,15 +1534,28 @@ img {
 
 @media (max-width: 900px) {
   .admin-sidebar {
-    right: -260px;
-    transform: none;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.2);
-    z-index: 9999;
+    position: fixed !important;
+    top: 0 !important;
+    right: -280px !important; /* Move fully off-screen */
+    width: 260px !important;
+    height: 100vh !important;
+    transform: none !important;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5) !important;
+    z-index: 10000 !important; /* Extremely high z-index */
+    visibility: visible !important;
+    display: flex !important;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
+  
   .admin-sidebar.mobile-active {
-    right: 0;
+    right: 0 !important;
+  }
+
+  .admin-sidebar-overlay {
+    z-index: 9000 !important;
   }
 }
+
 
 
 
