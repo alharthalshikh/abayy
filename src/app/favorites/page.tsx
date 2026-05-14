@@ -2,13 +2,15 @@
 import { useState, useEffect } from "react";
 import { Product } from "@/types";
 import { db, auth } from "@/lib/firebase";
-import { doc, onSnapshot, collection, query, where, getDocs, documentId } from "firebase/firestore";
+import { doc, onSnapshot, collection, getDocs } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import ProductCard from "@/components/ProductCard";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function FavoritesPage() {
+    const { settings } = useSettings();
     const [favorites, setFavorites] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState<any>(null);
@@ -130,8 +132,8 @@ export default function FavoritesPage() {
 
       <footer className="footer">
         <div className="section-container">
-          <h2 className="footer-logo">ATHEER</h2>
-          <p className="footer-copy">© 2026 أثير للعبايات. جميع الحقوق محفوظة.</p>
+          <h2 className="footer-logo">{settings.logoText}</h2>
+          <p className="footer-copy">© {new Date().getFullYear()} {settings.storeName}. جميع الحقوق محفوظة.</p>
         </div>
       </footer>
     </main>

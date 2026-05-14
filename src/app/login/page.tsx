@@ -15,7 +15,11 @@ import {
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db, isFirebaseConfigured } from '@/lib/firebase';
 
+import { useSettings } from '@/context/SettingsContext';
+
 export default function LoginPage() {
+  const { settings } = useSettings();
+
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', password: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -207,9 +211,10 @@ export default function LoginPage() {
           <div className="lp-info-inner">
             <div className="lp-logo-box">
               <div className="lp-logo-glow" />
-              <div className="lp-logo-text">AT</div>
+              <div className="lp-logo-text">{settings.logoText.slice(0, 2).toUpperCase()}</div>
             </div>
-            <h1 className="lp-brand-name">أثير للعبايات</h1>
+            <h1 className="lp-brand-name">{settings.storeName}</h1>
+
             <p className="lp-brand-tagline">فخامة تليق بكِ، تصاميم تجسد الأناقة والتميز.</p>
             
             <div className="lp-features-list">

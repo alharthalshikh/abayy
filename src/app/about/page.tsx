@@ -1,7 +1,11 @@
+"use client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function AboutPage() {
+  const { settings } = useSettings();
+
   return (
     <main>
       <Navbar />
@@ -30,7 +34,7 @@ export default function AboutPage() {
               <div className="about-icon">✨</div>
               <h2>قصتنا</h2>
               <p>
-                بدأت أثير للعبايات كحلم صغير نابع من شغف عميق بالأناقة والتميز. نؤمن بأن المرأة تستحق أن تشعر بالثقة والجمال في كل لحظة، ولهذا نقدم لها عبايات وحقائب مصممة بأيدٍ ماهرة تجمع بين الأصالة والعصرية.
+                بدأت {settings.storeName} كحلم صغير نابع من شغف عميق بالأناقة والتميز. نؤمن بأن المرأة تستحق أن تشعر بالثقة والجمال في كل لحظة، ولهذا نقدم لها عبايات وحقائب مصممة بأيدٍ ماهرة تجمع بين الأصالة والعصرية.
               </p>
             </div>
 
@@ -69,7 +73,7 @@ export default function AboutPage() {
 
             {/* CTA */}
             <div className="about-cta">
-              <h2>ابدئي رحلتك مع أثير</h2>
+              <h2>ابدئي رحلتك مع {settings.logoText}</h2>
               <p>اكتشفي تشكيلاتنا الحصرية واختاري ما يناسب ذوقك الرفيع</p>
               <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Link href="/abayas" className="btn-primary" style={{ borderRadius: '10px' }}>تصفح العبايات</Link>
@@ -83,14 +87,14 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="footer">
         <div className="section-container">
-          <h2 className="footer-logo">ATHEER</h2>
+          <h2 className="footer-logo">{settings.logoText}</h2>
           <div className="footer-links">
             <Link href="/abayas">العبايات</Link>
             <Link href="/bags">الحقائب</Link>
             <Link href="/about">من نحن</Link>
           </div>
           <div className="footer-divider"></div>
-          <p className="footer-copy">© 2026 أثير للعبايات. جميع الحقوق محفوظة.</p>
+          <p className="footer-copy">© {new Date().getFullYear()} {settings.storeName}. جميع الحقوق محفوظة.</p>
         </div>
       </footer>
     </main>

@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useSettings } from "@/context/SettingsContext";
+
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -7,8 +9,10 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
+  const { settings } = useSettings();
   const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "", name: "" });
+
 
   if (!isOpen) return null;
 
@@ -20,7 +24,8 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
         <div className="auth-container">
           <div className="auth-header">
             <h2>{isRegister ? "إنشاء حساب جديد" : "تسجيل الدخول"}</h2>
-            <p>{isRegister ? "انضمي إلينا لتجربة تسوق فريدة" : "مرحباً بكِ مجدداً في أثير"}</p>
+            <p>{isRegister ? "انضمي إلينا لتجربة تسوق فريدة" : `مرحباً بكِ مجدداً في ${settings.logoText}`}</p>
+
           </div>
 
           <form className="auth-form" onSubmit={(e) => e.preventDefault()}>

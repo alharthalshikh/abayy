@@ -3,10 +3,12 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { useSettings } from "@/context/SettingsContext";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('id');
+  const { settings } = useSettings();
 
   return (
     <div style={{ paddingTop: '150px', paddingBottom: '100px' }}>
@@ -19,7 +21,7 @@ function SuccessContent() {
 
       <h1 style={{ fontSize: '32px', fontWeight: 900, color: 'var(--black)', marginBottom: '16px' }}>شكراً لكِ، تم استلام طلبك!</h1>
       <p style={{ color: '#666', fontSize: '18px', maxWidth: '500px', margin: '0 auto 30px', lineHeight: 1.6 }}>
-        يسعدنا اختيارك لمتجر أثير. لقد تم تسجيل طلبك بنجاح وسنقوم بالتواصل معك قريباً لتأكيد التوصيل.
+        يسعدنا اختيارك لمتجر {settings.logoText}. لقد تم تسجيل طلبك بنجاح وسنقوم بالتواصل معك قريباً لتأكيد التوصيل.
       </p>
 
       {orderId && (
