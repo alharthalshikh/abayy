@@ -17,6 +17,8 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "أثير للعبايات | Atheer Abaya",
   description: "متجر عبايات وحقائب فاخرة بتصاميم عصرية",
+  themeColor: "#0c0c0c",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
 };
 
 import { SettingsProvider } from "@/context/SettingsContext";

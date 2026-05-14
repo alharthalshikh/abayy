@@ -4,6 +4,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 
+/* Hide Next.js Dev Indicator */
+nextjs-portal, 
+[data-nextjs-toast-wrapper],
+div[data-nextjs-toast-wrapper] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 :root {
   /* Core Palette */
   --gold: #c8a96e;
@@ -96,7 +106,7 @@ img {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 25px 0;
+  padding: 20px 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--navbar-bg);
 }
@@ -193,12 +203,19 @@ img {
 .btn-cart {
   background: var(--gold) !important;
   color: var(--black) !important;
-  padding: 12px 28px !important;
-  border-radius: 4px;
+  padding: 12px 24px !important;
+  border-radius: 8px;
   font-weight: 700 !important;
   letter-spacing: 0.5px;
-  transition: all 0.3s ease !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: 0 4px 15px rgba(200, 169, 110, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-icon-nav {
+  display: none;
 }
 
 .btn-cart:hover {
@@ -1199,22 +1216,64 @@ img {
     width: 100%;
     text-align: center;
   }
-  .mobile-toggle {
-    display: block;
+  .navbar-inner {
+    padding: 0 15px;
+  }
+  .navbar-mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     order: 2;
   }
   .navbar-logo {
     order: 1;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-right: 0;
+  }
+  .mobile-toggle, .theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    color: #f5f0ea;
+    transition: all 0.3s ease;
   }
   .navbar-actions {
     order: 3;
+    gap: 8px;
   }
-  .navbar-actions button:not(.btn-cart) {
+  .navbar-actions .user-profile-nav,
+  .navbar-actions .btn-login {
     display: none;
   }
   .btn-cart {
-    padding: 8px 16px !important;
-    font-size: 13px !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+    width: auto;
+    min-width: 44px;
+    height: 44px;
+    justify-content: center;
+    background: var(--gold) !important;
+  }
+  .btn-cart-text {
+    display: none;
+  }
+  .cart-icon-nav {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+  .cart-badge {
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+    border-width: 2px;
   }
   .categories-grid {
     grid-template-columns: 1fr;
@@ -1250,18 +1309,45 @@ img {
 
 @media (max-width: 480px) {
   .products-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
-  .navbar-inner {
-    padding: 0 20px;
+  .product-image {
+    height: 240px;
+  }
+  .product-details {
+    padding: 12px;
+  }
+  .product-name {
+    font-size: 14px;
+  }
+  .product-price {
+    font-size: 16px;
   }
   .section-container {
-    padding: 0 20px;
+    padding: 0 15px;
   }
   .hero-content {
-    padding: 0 20px;
+    padding: 0 15px;
+  }
+  .hero-title {
+    font-size: 32px;
+  }
+  .hero-subtitle {
+    letter-spacing: 4px;
+    font-size: 12px;
+  }
+  .hero-desc {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  .btn-primary, .btn-outline {
+    padding: 12px 32px;
+    font-size: 14px;
+    width: 100%;
   }
 }
+
 
 /* ========================================
    WHATSAPP FLOAT BUTTON
@@ -2243,16 +2329,24 @@ img {
    ======================================== */
 @media (max-width: 768px) {
   .page-hero {
-    height: 35vh;
-    min-height: 260px;
+    height: 30vh;
+    min-height: 220px;
+    padding-top: 60px;
   }
 
   .page-hero-content h1 {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .breadcrumb {
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
   }
 
   .page-hero-content {
-    padding: 0 20px 30px;
+    padding: 0 20px 20px;
   }
 
   .about-values-grid {

@@ -77,9 +77,9 @@ export default function AbayasPage() {
               ))}
             </div>
           ) : products.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '80px 20px', color: '#999' }}>
-              <div style={{ fontSize: '4rem', marginBottom: 16 }}>👗</div>
-              <h3 style={{ fontWeight: 700, marginBottom: 8 }}>لا توجد عبايات حالياً</h3>
+            <div className="empty-state">
+              <div className="empty-icon">👗</div>
+              <h3>لا توجد عبايات حالياً</h3>
               <p>سيتم إضافة تشكيلات جديدة قريباً</p>
             </div>
           ) : (
