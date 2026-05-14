@@ -105,12 +105,13 @@ export default function Navbar() {
           </div>
 
           <Link href="/" className="navbar-logo">
-            {settings.logo && settings.logo.startsWith('http') ? (
-              <img src={settings.logo} alt={settings.storeName} style={{ height: '35px', objectFit: 'contain' }} />
+            {settings.logo && (settings.logo.startsWith('http') || settings.logo.startsWith('data:image')) ? (
+              <img src={settings.logo} alt={settings.storeName} style={{ height: '45px', width: 'auto', objectFit: 'contain' }} />
             ) : (
-              settings.logoText
+              <span className="logo-text-nav">{settings.logoText || "أثير للعبايات"}</span>
             )}
           </Link>
+
 
 
           <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
