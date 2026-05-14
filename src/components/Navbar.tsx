@@ -153,8 +153,17 @@ export default function Navbar() {
               <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
             )}
 
-            {!authLoading && !user && (
-              <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
+            {!authLoading && (
+              user ? (
+                <button
+                  onClick={() => { handleLogout(); setIsMenuOpen(false); }}
+                  className="mobile-logout-btn"
+                >
+                  تسجيل الخروج
+                </button>
+              ) : (
+                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
+              )
             )}
 
           </div>
@@ -163,7 +172,16 @@ export default function Navbar() {
           <div className="navbar-actions">
             {authLoading ? (
               <div className="auth-loader-skeleton"></div>
-            ) : !user && (
+            ) : user ? (
+              <div className="user-profile-nav">
+                <span className="user-name-hint" style={{ fontSize: '14px', opacity: 0.8 }}>مرحباً، {user.displayName?.split(' ')[0] || 'عميلنا'}</span>
+                <button onClick={handleLogout} className="btn-logout" title="تسجيل الخروج">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+              </div>
+
+
+            ) : (
               <Link href="/login" className="btn-login">تسجيل الدخول</Link>
             )}
             <button className="btn-cart" onClick={() => setIsCartOpen(true)}>
