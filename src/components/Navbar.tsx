@@ -64,76 +64,77 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
-      <div className="navbar-inner">
-        <div className="navbar-mobile-controls">
-          <button 
-            className="mobile-toggle" 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle Menu"
-          >
-            {isMenuOpen ? (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            )}
-          </button>
-          
-          <button 
-            className="theme-toggle-btn" 
-            onClick={toggleTheme}
-            title={theme === 'light' ? 'الوضع الليلي' : 'الوضع النهاري'}
-          >
-            {theme === 'light' ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="18.36" x2="5.64" y2="19.78"></line><line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line></svg>
-            )}
-          </button>
-        </div>
+    <>
+      <nav className={`navbar ${scrolled ? "scrolled" : ""} ${isMenuOpen ? "menu-open" : ""}`}>
+        <div className="navbar-inner">
+          <div className="navbar-mobile-controls">
+            <button 
+              className="mobile-toggle" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {isMenuOpen ? (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              ) : (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+              )}
+            </button>
+            
+            <button 
+              className="theme-toggle-btn" 
+              onClick={toggleTheme}
+              title={theme === 'light' ? 'الوضع الليلي' : 'الوضع النهاري'}
+            >
+              {theme === 'light' ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="18.36" x2="5.64" y2="19.78"></line><line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line></svg>
+              )}
+            </button>
+          </div>
 
-        <Link href="/" className="navbar-logo">
-          {settings.logoText}
-        </Link>
-
-        <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
-          <Link href="/abayas" onClick={() => setIsMenuOpen(false)}>العبايات</Link>
-          <Link href="/bags" onClick={() => setIsMenuOpen(false)}>الحقائب</Link>
-          <Link href="/about" onClick={() => setIsMenuOpen(false)}>من نحن</Link>
-          <Link href="/favorites" onClick={() => setIsMenuOpen(false)} className="nav-fav-link">
-            المفضلة
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-            <FavoritesCounter />
+          <Link href="/" className="navbar-logo">
+            {settings.logoText}
           </Link>
 
-          {isAdmin && (
-            <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
-          )}
-        </div>
+          <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
+            <Link href="/abayas" onClick={() => setIsMenuOpen(false)}>العبايات</Link>
+            <Link href="/bags" onClick={() => setIsMenuOpen(false)}>الحقائب</Link>
+            <Link href="/about" onClick={() => setIsMenuOpen(false)}>من نحن</Link>
+            <Link href="/favorites" onClick={() => setIsMenuOpen(false)} className="nav-fav-link">
+              المفضلة
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              <FavoritesCounter />
+            </Link>
 
-        <div className="navbar-actions">
-          {authLoading ? (
-            <div className="auth-loader-skeleton"></div>
-          ) : user ? (
-            <div className="user-profile-nav">
-              <span className="user-name-hint">مرحباً، {user.displayName?.split(' ')[0] || 'عميلنا'}</span>
-              <button onClick={handleLogout} className="btn-logout" title="تسجيل الخروج">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-              </button>
-            </div>
-          ) : (
-            <Link href="/login" className="btn-login">تسجيل الدخول</Link>
-          )}
-          <button className="btn-cart" onClick={() => setIsCartOpen(true)}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="cart-icon-nav"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            <span className="btn-cart-text">سلة التسوق</span>
-            <CartCounter />
-          </button>
-        </div>
-      </div>
+            {isAdmin && (
+              <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
+            )}
+          </div>
 
+          <div className="navbar-actions">
+            {authLoading ? (
+              <div className="auth-loader-skeleton"></div>
+            ) : user ? (
+              <div className="user-profile-nav">
+                <span className="user-name-hint">مرحباً، {user.displayName?.split(' ')[0] || 'عميلنا'}</span>
+                <button onClick={handleLogout} className="btn-logout" title="تسجيل الخروج">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+              </div>
+            ) : (
+              <Link href="/login" className="btn-login">تسجيل الدخول</Link>
+            )}
+            <button className="btn-cart" onClick={() => setIsCartOpen(true)}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="cart-icon-nav"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+              <span className="btn-cart-text">سلة التسوق</span>
+              <CartCounter />
+            </button>
+          </div>
+        </div>
+      </nav>
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-    </nav>
+    </>
   );
 }
 
