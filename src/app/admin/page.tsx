@@ -895,24 +895,39 @@ export default function AdminDashboard() {
       ) : (
         <div className="categories-admin-grid">
           {banners.map(banner => (
-            <div key={banner.id} className="category-admin-card" style={{ overflow: 'hidden' }}>
-              <img src={banner.image} alt={banner.title} style={{ width: '100%', height: 160, objectFit: 'cover' }} />
-              <div className="cat-info" style={{ padding: 15 }}>
-                <div className="cat-name" style={{ fontWeight: 700 }}>{banner.title}</div>
-                <div style={{ fontSize: '0.8rem', color: '#888', marginTop: 4 }}>{banner.subtitle}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginTop: 8 }}>🔗 {banner.link}</div>
+            <div key={banner.id} className="category-admin-card" style={{ overflow: 'hidden', flexDirection: 'column', alignItems: 'stretch', padding: 0 }}>
+              <div style={{ position: 'relative', width: '100%', height: 180 }}>
+                <img src={banner.image} alt={banner.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div style={{ 
+                  position: 'absolute', top: 10, right: 10, 
+                  background: banner.active ? '#4CAF50' : '#f44336', 
+                  color: 'white', fontSize: '10px', padding: '4px 10px', borderRadius: '20px', fontWeight: 700 
+                }}>
+                  {banner.active ? 'نشط' : 'معطل'}
+                </div>
               </div>
-              <div className="action-btns" style={{ padding: '0 15px 15px', display: 'flex', gap: 10 }}>
+              <div className="cat-info" style={{ padding: '20px 20px 10px' }}>
+                <div className="cat-name" style={{ fontWeight: 800, fontSize: '1.1rem', marginBottom: 6 }}>{banner.title}</div>
+                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{banner.subtitle}</div>
+                <div style={{ 
+                  fontSize: '0.75rem', color: 'var(--gold)', marginTop: 12, 
+                  background: 'rgba(200,169,110,0.1)', padding: '6px 12px', borderRadius: '8px',
+                  display: 'inline-flex', alignItems: 'center', gap: 6
+                }}>
+                  🔗 {banner.link}
+                </div>
+              </div>
+              <div className="action-btns" style={{ padding: '15px 20px 20px', display: 'flex', gap: 10, marginTop: 'auto' }}>
                 <button 
                   className="btn-admin-primary" 
-                  style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }} 
+                  style={{ flex: 1, padding: '10px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} 
                   onClick={() => openEditBanner(banner)}
                 >
                   ✏️ تعديل
                 </button>
                 <button 
                   className="btn-admin-danger" 
-                  style={{ flex: 1, padding: '8px', fontSize: '0.85rem', background: '#ff4757', color: 'white', border: 'none', borderRadius: 8 }} 
+                  style={{ flex: 1, padding: '10px', fontSize: '0.85rem', background: 'rgba(244, 67, 54, 0.1)', color: '#f44336', border: '1px solid rgba(244, 67, 54, 0.2)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }} 
                   onClick={() => handleDeleteBanner(banner.id)}
                 >
                   🗑️ حذف
