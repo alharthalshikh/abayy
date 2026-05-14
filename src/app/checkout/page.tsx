@@ -234,8 +234,8 @@ export default function CheckoutPage() {
     <main style={{ background: 'var(--bg-secondary)', minHeight: '100vh', transition: 'background-color 0.4s ease' }}>
       <Navbar />
 
-      <section className="section" style={{ paddingTop: '120px', paddingBottom: '80px' }}>
-        <div className="section-container" style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '40px', alignItems: 'start' }}>
+      <section className="section" style={{ paddingTop: '100px', paddingBottom: '80px' }}>
+        <div className="section-container checkout-container">
           
           {/* Checkout Form */}
           <div className="checkout-card" style={{ background: 'var(--bg-card)', padding: '40px', borderRadius: '30px', boxShadow: '0 10px 40px var(--shadow-color)', border: '1px solid var(--border-color)' }}>
@@ -258,7 +258,7 @@ export default function CheckoutPage() {
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="checkout-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div className="form-group">
                   <label style={{ display: 'block', marginBottom: '10px', fontWeight: 700, fontSize: '15px' }}>رقم الجوال *</label>
                   <input 
@@ -285,7 +285,7 @@ export default function CheckoutPage() {
               </div>
 
               {/* Location Selection Buttons */}
-              <div style={{ display: 'flex', gap: '15px', marginBottom: '5px' }}>
+              <div className="checkout-grid-2" style={{ display: 'flex', gap: '15px', marginBottom: '5px' }}>
                 <button 
                   type="button"
                   onClick={handleAutoLocate}
@@ -396,31 +396,28 @@ export default function CheckoutPage() {
                 />
               </div>
 
-                <div style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
+                <div className="checkout-grid-2" style={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
                   <button 
                     type="button"
                     onClick={() => router.push('/')}
                     style={{ 
-                      flex: 0.4, padding: '20px', background: '#f5f5f5', color: '#666', 
-                      borderRadius: '16px', border: 'none', fontSize: '16px', fontWeight: 700, 
-                      cursor: 'pointer', transition: '0.3s transform'
+                      flex: 1, padding: '18px', background: 'var(--bg-secondary)', color: '#666', 
+                      borderRadius: '16px', border: '1px solid var(--border-color)', fontSize: '16px', fontWeight: 700, 
+                      cursor: 'pointer'
                     }}
                   >
-                    إلغاء الطلب
+                    إلغاء
                   </button>
                   <button 
                     type="submit" 
                     disabled={loading || isUnderMinOrder}
                     style={{ 
-                      flex: 1, padding: '20px', background: isUnderMinOrder ? '#ccc' : 'var(--black)', color: 'var(--gold)', 
+                      flex: 2, padding: '18px', background: isUnderMinOrder ? '#ccc' : 'var(--black)', color: 'var(--gold)', 
                       borderRadius: '16px', border: 'none', fontSize: '18px', fontWeight: 800, 
-                      cursor: isUnderMinOrder ? 'not-allowed' : 'pointer', boxShadow: isUnderMinOrder ? 'none' : '0 15px 30px rgba(0,0,0,0.15)',
-                      transition: '0.3s transform'
+                      cursor: isUnderMinOrder ? 'not-allowed' : 'pointer', boxShadow: isUnderMinOrder ? 'none' : '0 15px 30px rgba(0,0,0,0.15)'
                     }}
-                    onMouseOver={(e) => !isUnderMinOrder && (e.currentTarget.style.transform = 'translateY(-3px)')}
-                    onMouseOut={(e) => !isUnderMinOrder && (e.currentTarget.style.transform = 'translateY(0)')}
                   >
-                    {loading ? "⏳ جاري المعالجة..." : isUnderMinOrder ? `الحد الأدنى للطلب ${settings.minimumOrder} ${settings.currencySymbol}` : "إتمام الطلب عبر واتساب 🛍️"}
+                    {loading ? "⏳ جاري المعالجة..." : isUnderMinOrder ? `الحد الأدنى ${settings.minimumOrder}` : "إتمام الطلب 🛍️"}
                   </button>
                 </div>
             </form>

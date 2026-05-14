@@ -2417,4 +2417,26 @@ img {
   .btn-login {
     display: none;
   }
+
+  /* Checkout Responsive Fixes */
+  .checkout-container {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    gap: 30px !important;
+  }
+
+  .checkout-card, .summary-card {
+    width: 100% !important;
+    padding: 25px !important;
+    position: static !important;
+  }
+
+  .summary-card {
+    margin-bottom: 0;
+  }
+
+  .checkout-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
 }
+
