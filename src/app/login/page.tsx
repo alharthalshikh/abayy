@@ -203,8 +203,13 @@ export default function LoginPage() {
         <div className="loading-content">
           <div className="loading-logo">
             <div className="logo-glow"></div>
-            <div className="logo-text">{settings.logoText.slice(0, 2).toUpperCase()}</div>
+            {settings.logo && settings.logo.startsWith('http') ? (
+              <img src={settings.logo} alt={settings.storeName} style={{ width: '70%', height: '70%', objectFit: 'contain', zIndex: 2 }} />
+            ) : (
+              <div className="logo-text">{settings.logoText.slice(0, 2).toUpperCase()}</div>
+            )}
           </div>
+
           <h2 className="loading-title">جاري تسجيل الدخول...</h2>
           <p className="loading-subtitle">مرحباً بكِ في عالم الأناقة والفخامة</p>
           <div className="loading-bar-container">

@@ -105,8 +105,13 @@ export default function Navbar() {
           </div>
 
           <Link href="/" className="navbar-logo">
-            {settings.logoText}
+            {settings.logo && settings.logo.startsWith('http') ? (
+              <img src={settings.logo} alt={settings.storeName} style={{ height: '35px', objectFit: 'contain' }} />
+            ) : (
+              settings.logoText
+            )}
           </Link>
+
 
           <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
             {isMenuOpen && (

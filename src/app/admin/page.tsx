@@ -166,6 +166,9 @@ export default function AdminDashboard() {
   const [showBannerModal, setShowBannerModal] = useState(false);
   const [bannerForm, setBannerForm] = useState<Partial<Banner>>({ title: '', subtitle: '', image: '', active: true, link: '/' });
   const [editingBannerId, setEditingBannerId] = useState<string | null>(null);
+  const [storeLogoFile, setStoreLogoFile] = useState<File | null>(null);
+  const [storeLogoPreview, setStoreLogoPreview] = useState<string | null>(null);
+
 
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean; title: string; message: string; onConfirm: () => void;
@@ -1249,11 +1252,22 @@ export default function AdminDashboard() {
   const saveSettings = async () => {
     try {
       setUploading(true);
-      await setDoc(doc(db, "settings", "store_config"), storeSettings);
+      let finalLogoUrl = storeSettings.logo;
+      if (storeLogoFile) {
+        finalLogoUrl = await handleFileUpload(storeLogoFile);
+      }
+      
+      const updatedSettings = { ...storeSettings, logo: finalLogoUrl };
+      await setDoc(doc(db, "settings", "store_config"), updatedSettings);
+      setStoreSettings(updatedSettings);
       showToast("تم حفظ الإعدادات بنجاح", "success");
-    } catch { showToast("حدث خطأ", "error"); }
+    } catch (error) { 
+      console.error(error);
+      showToast("حدث خطأ أثناء الحفظ", "error"); 
+    }
     finally { setUploading(false); }
   };
+
 
   const renderSettings = () => (
     <div style={{ maxWidth: '900px' }}>
@@ -1274,20 +1288,44 @@ export default function AdminDashboard() {
           </div>
           
           <div className="form-group">
-            <label>الشعار (إيموجي أو رابط صورة)</label>
-            <div style={{ display: 'flex', gap: 10 }}>
-              <button className="btn-admin-secondary" style={{ background: 'var(--gold)', color: '#000', border: 'none', display: 'flex', alignItems: 'center', gap: 8, padding: '0 15px', borderRadius: 10, whiteSpace: 'nowrap' }}>
+            <label>الشعار (صورة أو إيموجي)</label>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+              <label className="btn-admin-secondary" style={{ background: 'var(--gold)', color: '#000', border: 'none', display: 'flex', alignItems: 'center', gap: 8, padding: '10px 15px', borderRadius: 10, whiteSpace: 'nowrap', cursor: 'pointer' }}>
                 <span>🖼️</span> رفع شعار
-              </button>
+                <input 
+                  type="file" 
+                  hidden 
+                  accept="image/*" 
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setStoreLogoFile(file);
+                      setStoreLogoPreview(URL.createObjectURL(file));
+                    }
+                  }}
+                />
+              </label>
               <input 
                 type="text" 
                 value={storeSettings.logo} 
-                onChange={e => setStoreSettings({...storeSettings, logo: e.target.value})} 
-                placeholder="رابط الصورة أو إيموجي"
+                onChange={e => {
+                  setStoreSettings({...storeSettings, logo: e.target.value});
+                  setStoreLogoPreview(null);
+                }} 
+                placeholder="أو ضع رابط صورة أو إيموجي"
                 style={{ flex: 1 }}
               />
             </div>
+            {(storeLogoPreview || (storeSettings.logo && storeSettings.logo.startsWith('http'))) && (
+              <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: '12px', color: '#888' }}>معاينة الشعار:</span>
+                <div style={{ width: 50, height: 50, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--border-color)', background: '#fff' }}>
+                  <img src={storeLogoPreview || storeSettings.logo} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+              </div>
+            )}
           </div>
+
 
           <div className="form-group">
             <label>الوصف</label>
