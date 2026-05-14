@@ -589,6 +589,7 @@ img {
   height: 34px;
   border: none;
   background: var(--bg-primary);
+  color: var(--text-primary);
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -599,6 +600,7 @@ img {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   transition: all 0.2s ease;
 }
+
 
 .qty-picker button:hover {
   background: var(--gold);
