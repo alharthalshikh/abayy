@@ -207,8 +207,6 @@ export default function AdminDashboard() {
       if (!isFirebaseConfigured()) throw new Error("Firebase not configured");
       
       let finalImageUrl = bannerForm.image;
-      if (bannerImageFile) finalImageUrl = await handleFileUpload(bannerImageFile);
-      
       const bannerData = { ...bannerForm, image: finalImageUrl };
 
       if (editingBannerId) {
@@ -332,7 +330,6 @@ export default function AdminDashboard() {
     try {
       setUploading(true);
       let finalImageUrl = productForm.imageUrl;
-      if (imageFile) finalImageUrl = await handleFileUpload(imageFile);
       const productData = { ...productForm, imageUrl: finalImageUrl };
       if (isFirebaseConfigured()) {
         if (editingProductId) {
@@ -1277,10 +1274,6 @@ export default function AdminDashboard() {
     try {
       let finalLogo = storeSettings.logo;
 
-      // Handle logo upload if a file was selected
-      if (storeLogoFile) {
-        finalLogo = await compressImage(storeLogoFile);
-      }
 
       const storeConfig = {
         storeName: storeSettings.storeName || "",
@@ -1331,11 +1324,20 @@ export default function AdminDashboard() {
                   type="file" 
                   hidden 
                   accept="image/*" 
-                  onChange={(e) => {
+                  onChange={async (e) => {
                     const file = e.target.files?.[0];
                     if (file) {
-                      setStoreLogoFile(file);
-                      setStoreLogoPreview(URL.createObjectURL(file));
+                      setUploading(true);
+                      try {
+                        const base64 = await compressImage(file);
+                        setStoreSettings(prev => ({ ...prev, logo: base64 }));
+                        setStoreLogoPreview(base64);
+                        showToast("تم رفع الشعار بنجاح");
+                      } catch (err) {
+                        showToast("فشل في معالجة الشعار", "error");
+                      } finally {
+                        setUploading(false);
+                      }
                     }
                   }}
                 />
@@ -1623,13 +1625,16 @@ export default function AdminDashboard() {
                           const file = e.target.files?.[0];
                           if (!file) return;
                           setUploading(true);
-                          const base64 = await compressImage(file);
-                          if (base64) {
-                            setProductForm({...productForm, imageUrl: base64});
+                          try {
+                            const base64 = await compressImage(file);
+                            setProductForm(prev => ({...prev, imageUrl: base64}));
                             setImagePreview(base64);
-                            showToast('تمت معالجة الصورة بنجاح');
+                            showToast('تمت معالجة صورة المنتج بنجاح');
+                          } catch (err) {
+                            showToast('فشل في معالجة الصورة', 'error');
+                          } finally {
+                            setUploading(false);
                           }
-                          setUploading(false);
                         }} 
                       />
                     </label>
@@ -1808,11 +1813,20 @@ export default function AdminDashboard() {
                   />
                   <label className="btn-admin-secondary" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 15px', borderRadius: 10, cursor: 'pointer', background: 'var(--gold)', color: '#000', border: 'none' }}>
                     <span>📤</span> رفع
-                    <input type="file" hidden accept="image/*" onChange={(e) => {
+                    <input type="file" hidden accept="image/*" onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (file) {
-                        setBannerImageFile(file);
-                        setImagePreview(URL.createObjectURL(file));
+                        setUploading(true);
+                        try {
+                          const base64 = await compressImage(file);
+                          setBannerForm(prev => ({ ...prev, image: base64 }));
+                          setImagePreview(base64);
+                          showToast("تمت معالجة صورة البانر");
+                        } catch (err) {
+                          showToast("فشل في معالجة الصورة", "error");
+                        } finally {
+                          setUploading(false);
+                        }
                       }
                     }} />
                   </label>
