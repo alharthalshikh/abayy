@@ -50,11 +50,15 @@ div[data-nextjs-toast-wrapper] {
   --bg-card: #181818;
   --text-primary: #f5f0ea; /* off-white text */
   --text-secondary: #c8a96e; /* gold text */
+  --white: #1a1a1a; /* Needed for background elements in dark mode */
+  --cream: #0c0c0c;
+  --charcoal: #f5f0ea;
   --border-color: rgba(200, 169, 110, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.4);
   --navbar-bg: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
   --navbar-scrolled: rgba(8, 8, 8, 0.98);
 }
+
 
 * {
   margin: 0;
