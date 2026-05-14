@@ -97,17 +97,18 @@ export default function AdminDashboard() {
     const params = new URLSearchParams(window.location.search);
     const tab = params.get('tab') as AdminTab;
     if (tab && ['dashboard', 'products', 'categories', 'orders', 'customers', 'reviews', 'banners', 'shipping', 'settings', 'reports'].includes(tab)) {
-      handleTabChange(tab);
+      setActiveTab(tab);
     }
   }, []);
 
   const handleTabChange = (tab: AdminTab) => {
-    handleTabChange(tab);
+    setActiveTab(tab);
     const url = new URL(window.location.href);
     url.searchParams.set('tab', tab);
     window.history.pushState({}, '', url);
     setIsSidebarOpen(false);
   };
+
 
 
   const [currentPrintingOrder, setCurrentPrintingOrder] = useState<Order | null>(null);
