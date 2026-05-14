@@ -11,6 +11,7 @@ interface StoreSettings {
   footerText: string;
   termsAndConditions: string;
   logoText: string;
+  logo?: string;
   // Shipping settings
   fixedDeliveryFee: number;
   freeDeliveryThreshold: number;
@@ -38,6 +39,7 @@ const defaultSettings: StoreSettings = {
   footerText: "ATHEER ABAYA. All Rights Reserved.",
   termsAndConditions: "",
   logoText: "ATHEER",
+  logo: "",
   fixedDeliveryFee: 25,
   freeDeliveryThreshold: 500,
   pricePerKm: 5,
@@ -80,7 +82,8 @@ export const SettingsProvider = ({ children }: { children: React.ReactNode }) =>
           whatsappNumber: data.whatsappNumber || prev.whatsappNumber,
           footerText: data.footerText || prev.footerText,
           termsAndConditions: data.termsAndConditions || prev.termsAndConditions,
-          logoText: data.logoText || prev.logoText || data.storeName
+          logoText: data.logoText || prev.logoText || data.storeName,
+          logo: data.logo || prev.logo
         }));
       }
     });
