@@ -54,6 +54,17 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMenuOpen]);
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -116,12 +127,21 @@ export default function Navbar() {
               <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="admin-link">لوحة التحكم</Link>
             )}
 
-            {!authLoading && !user && (
-              <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
+            {!authLoading && (
+              user ? (
+                <button 
+                  onClick={() => { handleLogout(); setIsMenuOpen(false); }} 
+                  className="mobile-logout-btn"
+                >
+                  تسجيل الخروج
+                </button>
+              ) : (
+                <Link href="/login" onClick={() => setIsMenuOpen(false)} className="menu-auth-btn">تسجيل الدخول</Link>
+              )
             )}
 
-
           </div>
+
 
           <div className="navbar-actions">
             {authLoading ? (
