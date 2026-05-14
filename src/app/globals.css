@@ -1534,13 +1534,16 @@ img {
 
 @media (max-width: 900px) {
   .admin-sidebar {
-    transform: translateX(100%);
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    right: -260px;
+    transform: none;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+    z-index: 9999;
   }
   .admin-sidebar.mobile-active {
-    transform: translateX(0);
+    right: 0;
   }
 }
+
 
 
 .sidebar-logo {
