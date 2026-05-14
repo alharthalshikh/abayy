@@ -225,19 +225,23 @@ export default function AdminDashboard() {
     } finally { setUploading(false); }
   };
 
-  const handleDeleteBanner = async (id: string) => {
+  const handleDeleteBanner = (id: string) => {
     setConfirmModal({
       isOpen: true,
       title: 'حذف البانر',
-      message: 'هل أنت متأكد من حذف هذا البانر؟',
+      message: 'هل أنت متأكد من حذف هذا البانر؟ لن يمكنك التراجع عن هذا الإجراء.',
       onConfirm: async () => {
         try {
           if (!isFirebaseConfigured()) return;
           await deleteDoc(doc(db, "banners", id));
-          showToast("تم الحذف بنجاح", "success");
+          showToast("تم حذف البانر بنجاح", "success");
           fetchBanners();
-          setConfirmModal({ ...confirmModal, isOpen: false });
-        } catch { showToast("فشل الحذف", "error"); }
+          setConfirmModal(prev => ({ ...prev, isOpen: false }));
+        } catch (error) {
+          console.error("Delete error:", error);
+          showToast("فشل في حذف البانر", "error");
+          setConfirmModal(prev => ({ ...prev, isOpen: false }));
+        }
       }
     });
   };
@@ -879,9 +883,21 @@ export default function AdminDashboard() {
                 <div style={{ fontSize: '0.8rem', color: '#888', marginTop: 4 }}>{banner.subtitle}</div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--gold)', marginTop: 8 }}>🔗 {banner.link}</div>
               </div>
-              <div className="action-btns" style={{ padding: '0 15px 15px' }}>
-                <button className="btn-icon btn-icon-edit" onClick={() => openEditBanner(banner)}>✏️ تعديل</button>
-                <button className="btn-icon btn-icon-delete" onClick={() => handleDeleteBanner(banner.id)}>🗑️ حذف</button>
+              <div className="action-btns" style={{ padding: '0 15px 15px', display: 'flex', gap: 10 }}>
+                <button 
+                  className="btn-admin-primary" 
+                  style={{ flex: 1, padding: '8px', fontSize: '0.85rem' }} 
+                  onClick={() => openEditBanner(banner)}
+                >
+                  ✏️ تعديل
+                </button>
+                <button 
+                  className="btn-admin-danger" 
+                  style={{ flex: 1, padding: '8px', fontSize: '0.85rem', background: '#ff4757', color: 'white', border: 'none', borderRadius: 8 }} 
+                  onClick={() => handleDeleteBanner(banner.id)}
+                >
+                  🗑️ حذف
+                </button>
               </div>
             </div>
           ))}
